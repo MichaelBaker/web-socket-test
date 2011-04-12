@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello thar</title>
+    <script>
+      // These things allow me to share code between the server and browser.
+      // I'm not sure how I feel about this yet :|
+      window.require = function() {};
+      window.module = {platform: "browser"};
+    </script>
+
+    <script src = "box2d.js"></script>
+    <script src = "jquery.js"       ></script>
+    <script src = "utilities.js"    ></script>
+    <script src = "class.js"        ></script>
+    
+    <script src = "static-body.js"  ></script>
+    <script src = "dynamic-body.js" ></script>
+    <script src = "ground-tile.js"  ></script>
+    <script src = "ground-tiles.js" ></script>
+    <script src = "player-group.js" ></script>
+    <script src = "world.js"        ></script>
+    <script src = "responses.js"    ></script>
+    <script src = "requests.js"     ></script>
+    <script src = "game.js"         ></script>
+    <script src = "player.js"       ></script>
+    <script src = "renderer.js"     ></script>
+    <script src = "updates.js"      ></script>
+    <script src = "dispatcher.js"   ></script>
+    <script src = "client.js"       ></script>
+    
+    <link rel = "stylesheet" href = "stylesheet.css" />
+  </head>
+  <body>
+    <canvas width = "800" height = "600" id = "main-viewport"></canvas>
+    <form>
+      <input type = "text" />
+      <input type = "button" value = "Connect" />
+    </form>
+    
+    <script>
+      jQuery.noConflict();
+      jQuery(function() {
+        if (window.WebSocket) { 
+          var client   = new Client();
+          var game     = new Game();
+          var renderer = new Renderer();
+          
+          game.gameLoop = function(time) {
+            game.renderer.clearScreen();
+            game.world.clearUpdates();
+            game.world.update(time);
+            game.world.draw(game.renderer);
+            
+            game.localPlayer.update(time);
+            game.localPlayer.updates.each(function(update) {
+              game.sendToServer(update);
+            });
+          };
+          
+          game.network      = client;
+          game.renderer     = renderer;
+          client.simulation = game;
+          
+          jQuery('form input[type="button"]').click(function() {
+            client.connect(jQuery('form input[type="text"]').val());
+          });
+        }
+        else { jQuery('body').html("Sorry bro :^|"); }
+      });
+    </script>
+  </body>
+</html>
