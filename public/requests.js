@@ -19,18 +19,17 @@ var requests = {
   },
   
   createPlayer : function(simulation , message) {
-    console.log(message);
     simulation.addPlayer(message.info);
   },
   
   velocityUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    player.setVelocity(message.velocity);
+    if (player) { player.setVelocity(message.velocity); }
   },
   
   positionUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    player.setPosition(message.position);
+    if (player) { player.setPosition(message.position); }
   },
   
   fetchGroundTile : function(simulation , message) {
