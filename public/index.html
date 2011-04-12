@@ -53,9 +53,9 @@
             game.world.draw(game.renderer);
             
             game.localPlayer.update(time);
-            game.localPlayer.updates.each(function(update) {
-              game.sendToServer(update);
-            });
+            //game.localPlayer.updates.each(function(update) {
+            //  game.sendToServer(update);
+            //});
           };
           
           game.network      = client;
