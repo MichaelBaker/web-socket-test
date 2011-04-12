@@ -29,7 +29,7 @@ var requests = {
   
   positionUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    if (player) { player.setPosition(message.position); }
+    //if (player) { player.setPosition(message.position); }
   },
   
   fetchGroundTile : function(simulation , message) {

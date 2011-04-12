@@ -51,6 +51,14 @@ var DynamicBody = Class({
     else {
       return false;
     }
+  },
+  
+  GetWorldCenter : function() {
+    return this.dynamicBody.GetWorldCenter();
+  },
+  
+  ApplyForce : function(force , location) {
+    this.dynamicBody.ApplyForce(force , location);
   }
 });
 

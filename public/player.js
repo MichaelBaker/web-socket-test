@@ -20,9 +20,9 @@ var Player = Class({
     
     var playerShapeDef = new box2d.b2PolygonDef();
     playerShapeDef.SetAsBox(this.width/2 , this.height/2);
-    playerShapeDef.density  = 1;
-    playerShapeDef.friction = 1;
-    playerShapeDef.restitution = 0;
+    playerShapeDef.density  = 2;
+    playerShapeDef.friction = 0.9;
+    playerShapeDef.restitution = 0.1;
     
     attributes.bodyShape = playerShapeDef;
     attributes.position  = attributes.position || {x : 3 , y : 6};
@@ -105,9 +105,11 @@ var Player = Class({
   },
   
   moveLeft : function() {
+    this.body.ApplyForce({x : -15 , y : 0} , this.body.GetWorldCenter());
   },
   
   moveRight : function() {
+    this.body.ApplyForce({x : 15 , y : 0} , this.body.GetWorldCenter());
   }
 });
 

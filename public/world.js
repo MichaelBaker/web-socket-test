@@ -22,7 +22,7 @@ var World = Class({
     worldAABB.upperBound.Set(attributes.upperBound.x , attributes.upperBound.y);
 
     this.world      = new box2d.b2World(worldAABB, gravity, attributes.sleep || true);
-    this.iterations = attributes.iterations || 10;
+    this.iterations = attributes.iterations || 1;
     
     this.groundTiles.world = this.world;
   },

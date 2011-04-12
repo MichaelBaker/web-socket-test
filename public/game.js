@@ -17,7 +17,7 @@ var Game = Class({
   initialize : function(network) {
     var self      = this;
     
-    this.framesPerSecond = 60;
+    this.framesPerSecond = 30;
     this.world.game      = this;
     
     requests.eachAttribute(function(name , handler) {
