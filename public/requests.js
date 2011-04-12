@@ -19,6 +19,7 @@ var requests = {
   },
   
   createPlayer : function(simulation , message) {
+    console.log(message);
     simulation.addPlayer(message.info);
   },
   

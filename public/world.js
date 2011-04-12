@@ -51,7 +51,9 @@ var World = Class({
   
   addPlayer : function(info) {
     info.world = this;
-    return this.players.add(new Player(info));
+    var temp = this.players.add(new Player(info));
+    console.log(temp);
+    return temp;
   },
   
   findPlayerById : function(id) {
