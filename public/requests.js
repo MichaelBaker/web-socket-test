@@ -23,15 +23,13 @@ var requests = {
   },
   
   velocityUpdate : function(simulation , message) {
+    var player = simulation.findPlayerById(message.id);
+    player.setVeocity(message.velocity);
   },
   
   positionUpdate : function(simulation , message) {
-    console.log(message);
     var player = simulation.findPlayerById(message.id);
     player.setPosition(message.position);
-  },
-  
-  accelerationUpdate : function(simulation , message) {
   },
   
   fetchGroundTile : function(simulation , message) {

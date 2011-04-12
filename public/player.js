@@ -75,13 +75,15 @@ var Player = Class({
   },
   
   updateVelocity : function(time) {
+    this.updates.push(new responses['velocityUpdate'](this.body.GetVelocity()));
   },
   
   updatePosition : function(time) {
     this.updates.push(new responses['positionUpdate'](this.body.GetPosition()));
   },
   
-  setVelocity : function(values) {
+  setVelocity : function(velocity) {
+    return this.body.SetVelocity(velocity);
   },
   
   setPosition : function(position) {

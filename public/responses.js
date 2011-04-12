@@ -12,7 +12,12 @@ var responses = {
   },
   
   positionUpdate : function(position) {
-    this.name     = 'updatePosition';
+    this.name     = 'positionUpdate';
     this.position = position;
+  },
+  
+  velocityUpdate : function(velocity) {
+    this.name     = 'velocityUpdate';
+    this.velocity = velocity;
   }
 };

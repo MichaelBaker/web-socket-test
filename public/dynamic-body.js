@@ -21,6 +21,10 @@ var DynamicBody = Class({
     return this.dynamicBody.GetPosition();
   },
   
+  GetVelocity : function() {
+    return this.dynamicBody.GetLinearVelocity();
+  },
+  
   GetRotation : function() {
     return this.dynamicBody.GetAngle();
   },
@@ -30,6 +34,18 @@ var DynamicBody = Class({
     
     if (position.x !== lastPosition.x || position.y !== lastPosition.y) {
       this.dynamicBody.SetXForm(position , this.GetRotation());
+      return true;
+    }
+    else {
+      return false;
+    }
+  },
+  
+  SetVelocity : function(velocity) {
+    var lastVelocity = this.GetVelocity();
+    
+    if (velocity.x !== lastvelocity.x || velocity.y !== lastvelocity.y) {
+      this.dynamicBody.SetLinearVelocity(velocity);
       return true;
     }
     else {
