@@ -44,7 +44,7 @@ var DynamicBody = Class({
   SetVelocity : function(velocity) {
     var lastVelocity = this.GetVelocity();
     
-    if (velocity.x !== lastvelocity.x || velocity.y !== lastvelocity.y) {
+    if (velocity.x !== lastVelocity.x || velocity.y !== lastVelocity.y) {
       this.dynamicBody.SetLinearVelocity(velocity);
       return true;
     }
