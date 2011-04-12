@@ -24,7 +24,7 @@ var requests = {
   
   velocityUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    player.setVeocity(message.velocity);
+    player.setVelocity(message.velocity);
   },
   
   positionUpdate : function(simulation , message) {
