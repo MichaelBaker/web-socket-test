@@ -1,6 +1,6 @@
 The server requires Node.js version 0.4.5 or later.
 
-To run the server, cd into the WebSocketTest2 directory and run 'node server.js'.
+To run the server, cd into the WebSocketTest directory and run 'node server.js'.
 
 To connect to the server, load index.html in a compatible browser, type in your name and the ip address of the server in the form and click connect.
 
