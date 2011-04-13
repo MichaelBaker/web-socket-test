@@ -23,7 +23,7 @@ var handleMessage = function(message) {
 
 var messageTable = {
   connect : function(message) {
-    webSocket           = new WebSocket("ws://" + message.url.replace(/ /g , ""));
+    webSocket           = new WebSocket("ws://" + message.url.replace(/ /g , "") + ":8000");
     webSocket.onerror   = handleError;
     webSocket.onclose   = handleClose;
     webSocket.onopen    = handleOpen;
