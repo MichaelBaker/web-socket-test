@@ -1,7 +1,3 @@
-onmessage = function(message) {
-  postMessage(message);
-}
-/*
 var webSocket = {};
 
 var handleError = function() {
@@ -18,11 +14,11 @@ var handleOpen = function() {
 
 var handleMessage = function(message) {
   var newMessage = {
-    name    : 'update',
-    message : message.data
+    name : 'notify',
+    data : message.data
   };
-  
-  postMessage(JSON.parse(newMessage));
+
+  postMessage(newMessage);
 };
 
 var messageTable = {
@@ -35,15 +31,10 @@ var messageTable = {
   },
   
   send : function(message) {
-    webSocket.send(JSON.stringify(message.message));
+    webSocket.send(JSON.stringify(message.data));
   }
 };
 
 onmessage = function(message) {
-  messageTable[message.name](message);
+  messageTable[message.data.name](message.data);
 };
-
-this.webSocket.onmessage = function(message) {
-  self.simulation.notify();
-};
-*/

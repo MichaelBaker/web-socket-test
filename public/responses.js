@@ -1,6 +1,7 @@
 var responses = {
   createLocalPlayer : function() {
-    this.name = 'createLocalPlayer';
+    this.name     = 'createLocalPlayer';
+    this.username = jQuery('#username').val();
   },
   
   fetchGroundTiles : function() {
@@ -19,5 +20,15 @@ var responses = {
   velocityUpdate : function(velocity) {
     this.name     = 'velocityUpdate';
     this.velocity = velocity;
+  },
+  
+  angularVelocityUpdate : function(angularVelocity) {
+    this.name            = 'angularVelocityUpdate';
+    this.angularVelocity = angularVelocity;
+  },
+  
+  angleUpdate : function(angle) {
+    this.name  = 'angleUpdate';
+    this.angle = angle;
   }
 };

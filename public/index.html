@@ -34,8 +34,16 @@
   <body>
     <canvas width = "800" height = "600" id = "main-viewport"></canvas>
     <form>
-      <input type = "text" />
-      <input type = "button" value = "Connect" />
+      <label>Your name, dawg</label>
+      <br />
+      <input type = "text" id = "username"/>
+      <label></label>
+      <br />
+      <label>Tha IP address</label>
+      <br />
+      <input type = "text" id = "ipaddress"/>
+      <br />
+      <input type = "button" value = "Connect" class = "unclicked" />
     </form>
     
     <script>
@@ -53,9 +61,10 @@
             game.world.draw(game.renderer);
             
             game.localPlayer.update(time);
-            //game.localPlayer.updates.each(function(update) {
-            //  game.sendToServer(update);
-            //});
+            
+            game.localPlayer.updates.each(function(update) {
+              game.sendToServer(update);
+            });
           };
           
           game.network      = client;
@@ -63,7 +72,22 @@
           client.simulation = game;
           
           jQuery('form input[type="button"]').click(function() {
-            client.connect(jQuery('form input[type="text"]').val());
+            client.connect(jQuery('#ipaddress').val());
+            
+            var form   = jQuery('form');
+            var button = jQuery('form input[type="button"]');
+            var canvas = jQuery('canvas');
+            
+            button.addClass('clicked').removeClass('unclicked');
+            form.animate({right : 1000} , {
+              duration : 450,
+              complete : function() {
+                form.css('display'   , 'none');
+                canvas.css('display' , 'block');
+              }
+            });
+            
+            return false;
           });
         }
         else { jQuery('body').html("Sorry bro :^|"); }

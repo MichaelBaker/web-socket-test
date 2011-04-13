@@ -53,12 +53,48 @@ var DynamicBody = Class({
     }
   },
   
+  SetAngularVelocity : function(angularVelocity) {
+    var lastVelocity = this.GetAngularVelocity();
+    
+    if (angularVelocity !== lastVelocity) {
+      this.dynamicBody.SetAngularVelocity(angularVelocity);
+      return true;
+    }
+    else {
+      return false;
+    }
+  },
+  
+  SetAngle : function(angle) {
+    var lastAngle = this.GetAngle();
+    
+    if (angle !== lastAngle) {
+      this.dynamicBody.SetXForm(this.dynamicBody.GetPosition() , angle);
+      return true;
+    }
+    else {
+      return false;
+    }
+  },
+  
   GetWorldCenter : function() {
     return this.dynamicBody.GetWorldCenter();
   },
   
+  GetAngularVelocity : function() {
+    return this.dynamicBody.GetAngularVelocity();
+  },
+  
+  GetAngle : function() {
+    return this.dynamicBody.GetAngle();
+  },
+  
   ApplyForce : function(force , location) {
     this.dynamicBody.ApplyForce(force , location);
+  },
+  
+  ApplyImpulse : function(force , location) {
+    this.dynamicBody.ApplyImpulse(force , location);
   }
 });
 

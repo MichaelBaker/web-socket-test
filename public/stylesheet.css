@@ -1,7 +1,85 @@
+* {
+  margin      : 0;
+  padding     : 0;
+  font-family : sans-serif;
+}
+
 canvas {
-  display: block;
-  width:   800px;
-  height:  600px;
-  margin:  auto;
-  border:  1px solid black;
+  display :  none;
+  width   :  800px;
+  height  :  600px;
+  margin  :  auto;
+}
+
+form {
+  position   : relative;
+  display    : block;
+  margin     : 150px auto;
+  width      : 55%;
+  padding    : 5% 5% 3%;
+  background : #DCFFD4;
+}
+
+form input[type='text'] {
+  height      : 35px;
+  width       : 100%;
+  margin      : 2px auto 20px;
+  font-size   : 30px;
+  text-align  : center;
+  font-weight : bold;
+  color       : #1B3F98;
+}
+
+form label {
+  color         : #E6B82D;
+  font-size     : 20px;
+  font-weight   : bold;
+  text-shadow   : 1px 1px 0px black;
+  margin-bottom : 0;
+}
+
+form label {
+  letter-spacing : 1px;
+  text-shadow    :  1px  1px 0px black,
+                    1px -1px 0px black,
+                   -1px  1px 0px black,
+                   -1px -1px 0px black;
+}
+
+form input[type='button'] {
+  height     : 70px;
+  width      : 105px;
+  display    : block;
+  border     : none;
+  margin     : auto;
+  font-size  : 20px;
+  color      : white;
+  background : #9B3122;
+  
+  -webkit-border-radius : 10px;
+  -moz-border-radius    : 10px;
+  -ms-border-radius     : 10px;
+  -o-border-radius      : 10px;
+  border-radius         : 10px;
+}
+
+form input[type='button'].unclicked {
+  -webkit-box-shadow : 2px 2px 2px black;
+  -moz-box-shadow    : 2px 2px 2px black;
+  -ms-box-shadow     : 2px 2px 2px black;
+  -o-box-shadow      : 2px 2px 2px black;
+  box-shadow         : 2px 2px 2px black;
+}
+
+
+form input[type='button'].clicked {
+  position : relative;
+  top      : 1px;
+  left     : 1px;
+  
+  -webkit-box-shadow : 1px 1px 3px black;
+  -moz-box-shadow    : 1px 1px 3px black;
+  -ms-box-shadow     : 1px 1px 3px black;
+  -o-box-shadow      : 1px 1px 3px black;
+  box-shadow         : 1px 1px 3px black;
 }

@@ -16,7 +16,7 @@ var World = Class({
   
   initialize : function(attributes) {
     var worldAABB = new box2d.b2AABB();
-    var gravity   = new box2d.b2Vec2(0.0 , attributes.gravity || -10.0);
+    var gravity   = new box2d.b2Vec2(0.0 , attributes.gravity || -20.0);
     
     worldAABB.lowerBound.Set(attributes.lowerBound.x , attributes.lowerBound.y);
     worldAABB.upperBound.Set(attributes.upperBound.x , attributes.upperBound.y);
@@ -59,6 +59,10 @@ var World = Class({
   },
   
   clearUpdates : function() {
+    this.players.each(function(player) {
+      player.clearUpdates();
+    });
+    
     this.updates = [];
   },
   

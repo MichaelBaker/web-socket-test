@@ -8,11 +8,11 @@ var GroundTile = Class({
   className : 'GroundTile',
 
   initialize : function(attributes) {
-    this.world      = attributes.world;
+    this.world              = attributes.world; 
     this.originalAttributes = attributes;
     
     var groundShapeDef = new box2d.b2PolygonDef();
-    groundShapeDef.SetAsBox(attributes.width/2 , attributes.height/2);
+    groundShapeDef.SetAsBox(attributes.width / 2 , attributes.height / 2);
 
     attributes.bodyShape = groundShapeDef;
     
@@ -32,10 +32,7 @@ var GroundTile = Class({
   },
   
   draw : function(renderer) {
-    var dimensions = renderer.translateWorldToScreen({
-      width  : this.attributes().width,
-      height : this.attributes().height
-    });
+    var dimensions = renderer.translateWorldToScreen(this.dimensions());
     
     renderer.surface.fillStyle = 'rgb(0,0,0)';
     renderer.surface.fillRect(-(dimensions.width / 2) , 0 , dimensions.width , dimensions.height);

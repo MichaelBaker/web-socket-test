@@ -29,7 +29,17 @@ var requests = {
   
   positionUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    //if (player) { player.setPosition(message.position); }
+    if (player) { player.setPosition(message.position); }
+  },
+  
+  angularVelocityUpdate : function(simulation , message) {
+    var player = simulation.findPlayerById(message.id);
+    if (player) { player.setAngularVeocity(message.angularVelocity); }
+  },
+  
+  angleUpdate : function(simulation , message) {
+    var player = simulation.findPlayerById(message.id);
+    if (player) { player.setAngule(message.angle); }
   },
   
   fetchGroundTile : function(simulation , message) {

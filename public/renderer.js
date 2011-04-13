@@ -2,38 +2,41 @@ var Renderer = Class({
   className : 'Renderer',
   
   initialize : function() {
-    var canvas = jQuery('#main-viewport');
+    this.canvas = jQuery('#main-viewport');
     
-    this.scalingFactor = 50;
-    this.surface       = canvas[0].getContext('2d');
-    
-    this.surface.translate(0 , canvas.outerHeight());
+    this.scalingFactor = 40;
+    this.surface       = this.canvas[0].getContext('2d');
     this.surface.scale(1 , -1);
-    this.surface.save();
+    this.surface.translate(0 , -this.canvas.outerHeight());
+    this.surface.save()
     
     this.viewport = {
-      width  : this.translateScreenToWorld(canvas.outerWidth()),
-      height : this.translateScreenToWorld(canvas.outerHeight()),
-      x      : -6,
-      y      : 0
+      width  : 16 * this.scalingFactor,
+      height : 12 * this.scalingFactor,
+      x      : -6 * this.scalingFactor,
+      y      :  0 * this.scalingFactor
     };
   },
   
   render : function(entity) {
-    var entityPosition    = this.translateWorldToScreen(entity.position());
-    var entityDimensions  = this.translateWorldToScreen(entity.dimensions());
-    var viewport          = this.translateWorldToScreen(this.viewport);
-    var xOffset           = entityPosition.x - viewport.x;
-    var yOffset           = entityPosition.y - viewport.y;
-
-    this.surface.save();
+    var position   = this.translateWorldToScreen(entity.position());
+    var dimensions = this.translateWorldToScreen(entity.dimensions());
+    
+    var xOffset = position.x - this.viewport.x;
+    var yOffset = position.y - this.viewport.y;
+    
+    this.surface.save()
     
     this.surface.translate(xOffset , yOffset);
-    this.surface.rotate(entity.rotation());
+    this.surface.scale(1 , -1);
+    this.surface.translate(0 , -dimensions.height / 2);
+    this.surface.translate(0 , dimensions.height / 2);
+    this.surface.rotate(-entity.rotation());
+    this.surface.translate(0 , -dimensions.height / 2);
     
     entity.draw(this);
     
-    this.surface.restore();
+    this.surface.restore()
   },
   
   clearScreen : function() {

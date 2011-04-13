@@ -15,11 +15,11 @@ game.gameLoop = function(time) {
 
 // TEMPORARY - Must input this from a map file
 game.world.addGroundTile({
-  x      : 0,
-  y      : 0,
+  x      : 2,
+  y      : 1,
   world  : this,
-  width  : 9,
-  height : 1
+  width  : 12,
+  height : 2
 });
 // END TEMPORARY
 

@@ -11,15 +11,22 @@ var Client = Class({
   
   connect : function(url) {
     var self = this;
+
+    this.worker = new Worker('websocket.js');
     
-    this.webSocket = new WebSocket("ws://" + url.replace(/ /g , ""));
-    this.webSocket.onerror   = this.handleError;
-    this.webSocket.onclose   = this.handleClose;
-    this.webSocket.onopen    = this.handleOpen;
-    
-    this.webSocket.onmessage = function(message) {
-      self.simulation.notify(JSON.parse(message.data));
+    this.worker.onmessage = function(message) {
+      if (message.data.name === 'notify') {
+        self.simulation.notify(JSON.parse(message.data.data));
+      }
+      else if (message.data.name === 'debug') {
+        console.log(JSON.parse(message.data));
+      }
     };
+    
+    this.worker.postMessage({
+      name : 'connect',
+      url  : url
+    });
   },
   
   handleOpen : function() {
@@ -27,6 +34,9 @@ var Client = Class({
   },
   
   send : function(message) {
-    this.webSocket.send(JSON.stringify(message));
+    this.worker.postMessage({
+      name : 'send',
+      data : message
+    });
   }
 });
