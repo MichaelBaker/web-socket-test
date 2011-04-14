@@ -22,6 +22,26 @@ var StaticBody = Class({
   
   GetRotation : function() {
     return this.staticBody.GetAngle();
+  },
+  
+  SetUserData : function(data) {
+    this.staticBody.SetUserData(data);
+  },
+  
+  GetUserData : function() {
+    return this.staticBody.GetUserData();
+  },
+  
+  GetContactList : function() {
+    var list = [];
+    var currentEdge = this.staticBody.m_contactList;
+    
+    while (currentEdge) {
+      list.push(currentEdge.contact);
+      currentEdge = currentEdge.next;
+    }
+    
+    return list;
   }
 });
 

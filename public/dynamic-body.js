@@ -11,6 +11,7 @@ var DynamicBody = Class({
     
     var dynamicBodyDefinition = new box2d.b2BodyDef();
     dynamicBodyDefinition.position.Set(attributes.position.x, attributes.position.y);
+    dynamicBodyDefinition.angle = attributes.rotation || 0;
     
     this.dynamicBody = this.world.CreateBody(dynamicBodyDefinition);
     this.dynamicBody.CreateShape(attributes.bodyShape);
@@ -95,6 +96,36 @@ var DynamicBody = Class({
   
   ApplyImpulse : function(force , location) {
     this.dynamicBody.ApplyImpulse(force , location);
+  },
+  
+  grounded : function() {
+    var result = false;
+    
+    this.GetContactList().each(function(contact) {
+      contact.GetManifolds().each(function(manifold) {
+        if (Math.atan2(manifold.normal.y , manifold.normal.x).toPrecision(4) === (Math.PI/2).toPrecision(4)) {
+          result = true;
+        }
+      });
+    });
+    
+    return result;
+  },
+  
+  SetUserData : function(data) {
+    this.dynamicBody.SetUserData(data);
+  },
+  
+  GetContactList : function() {
+    var list = [];
+    var currentEdge = this.dynamicBody.m_contactList;
+    
+    while (currentEdge) {
+      list.push(currentEdge.contact);
+      currentEdge = currentEdge.next;
+    }
+    
+    return list;
   }
 });
 

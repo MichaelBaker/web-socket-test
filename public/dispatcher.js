@@ -1,9 +1,25 @@
 var ButtonDispatcher = Class({
   buttonTable : {
-    '- - - - W' : 'up',
-    '- - - - A' : 'left',
-    '- - - - S' : 'down',
-    '- - - - D' : 'right'
+    '- - - - W' : {
+      up     : 'doNothing',
+      down   : 'up',
+      active : false
+      },
+    '- - - - A' : {
+      up     : 'right',
+      down   : 'left',
+      active : false
+      },
+    '- - - - S' : {
+      up     : 'doNothing',
+      down   : 'down',
+      active : false
+    },
+    '- - - - D' : {
+      up     : 'left',
+      down   : 'right',
+      active : false
+    }
   },
   
   initialize : function(player) {
@@ -12,7 +28,11 @@ var ButtonDispatcher = Class({
     this.player = player;
     
     jQuery(document).keydown(function(event) {
-      self.dispatchKeyEvent(event);
+      self.dispatchKeyDownEvent(event);
+    });
+    
+    jQuery(document).keyup(function(event) {
+      self.dispatchKeyUpEvent(event);
     });
   },
   
@@ -44,19 +64,44 @@ var ButtonDispatcher = Class({
     this.player.moveRight();
   },
   
-  bindKeyCode : function(event , functionName) {
+  bindKeyCode : function(event , callbacks) {
     var key = this.translateEvent(event);
     
-    this.buttonTable[key] = functionName;
+    this.buttonTable[key] = {
+      up     : callbacks.onup   || 'doNothing',
+      down   : callbacks.ondown || 'doNothing',
+      active : false
+    };
   },
   
-  dispatchKeyEvent : function(event) {
+  doNothing : function() {  
+  },
+  
+  dispatchKeyDownEvent : function(event) {
     var self = this;
     var key  = this.translateKeyEvent(event);
 
     if (this.buttonTable[key]) {
-      var functionName = this.buttonTable[key];
-      self[functionName]();
+      var keyState = this.buttonTable[key];
+      
+      if (!keyState.active) {
+        keyState.active = true;
+        this[keyState.down]();
+      }
+    }
+  },
+  
+  dispatchKeyUpEvent : function(event) {
+    var self = this;
+    var key  = this.translateKeyEvent(event);
+
+    if (this.buttonTable[key]) {
+      var keyState = this.buttonTable[key];
+      
+      if (keyState.active) {
+        keyState.active = false;
+        this[keyState.up]();
+      }
     }
   }
 });

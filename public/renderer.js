@@ -13,7 +13,7 @@ var Renderer = Class({
     this.viewport = {
       width  : 16 * this.scalingFactor,
       height : 12 * this.scalingFactor,
-      x      : -6 * this.scalingFactor,
+      x      : -8 * this.scalingFactor,
       y      :  0 * this.scalingFactor
     };
   },

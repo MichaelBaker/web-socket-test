@@ -10,6 +10,7 @@ var GroundTile = Class({
   initialize : function(attributes) {
     this.world              = attributes.world; 
     this.originalAttributes = attributes;
+    this.types              = {ground : true};
     
     var groundShapeDef = new box2d.b2PolygonDef();
     groundShapeDef.SetAsBox(attributes.width / 2 , attributes.height / 2);
@@ -17,6 +18,7 @@ var GroundTile = Class({
     attributes.bodyShape = groundShapeDef;
     
     this.body  = new StaticBody(attributes);
+    this.body.SetUserData(this);
   },
   
   dimensions : function() {
@@ -40,6 +42,10 @@ var GroundTile = Class({
   
   attributes : function() {
     return this.originalAttributes;
+  },
+  
+  kindOf : function(type) {
+    return this.types[type];
   }
 });
 
