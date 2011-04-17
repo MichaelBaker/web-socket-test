@@ -30,5 +30,17 @@ var responses = {
   angleUpdate : function(angle) {
     this.name  = 'angleUpdate';
     this.angle = angle;
+  },
+  
+  jump : function() {
+    this.name = 'jump';
+  },
+  
+  left : function() {
+    this.name = 'left';
+  },
+  
+  right : function() {
+    this.name = 'right';
   }
 };

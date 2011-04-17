@@ -1,0 +1,27 @@
+var File  = require('fs');
+var box2d = require('box2dnode');
+
+var mapData = JSON.stringify({
+  name : 'Map One',
+  tiles : [
+    {type     : 'default',
+     position : {x : 2 , y : 1},
+     vertices : [
+       new box2d.b2Vec2( 7 , -1),
+       new box2d.b2Vec2( 7 ,  2),
+       new box2d.b2Vec2(-7 ,  1),
+       new box2d.b2Vec2(-6 , -1)
+     ]},
+     
+     {type     : 'default',
+      position : {x : 9.5 , y : 1},
+      vertices : [
+        new box2d.b2Vec2(6 , -1),
+        new box2d.b2Vec2(6 ,  2),
+        new box2d.b2Vec2(0 ,  2),
+        new box2d.b2Vec2(0 , -1)
+      ]}
+  ]
+});
+
+File.writeFileSync('map1.map' , mapData);

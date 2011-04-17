@@ -1,0 +1,1 @@
+{"name":"Map One","tiles":[{"type":"default","position":{"x":2,"y":1},"vertices":[{"x":7,"y":-1},{"x":7,"y":2},{"x":-7,"y":1},{"x":-6,"y":-1}]},{"type":"default","position":{"x":9.5,"y":1},"vertices":[{"x":6,"y":-1},{"x":6,"y":2},{"x":0,"y":2},{"x":0,"y":-1}]}]}

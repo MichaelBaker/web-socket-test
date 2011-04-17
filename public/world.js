@@ -42,6 +42,7 @@ var World = Class({
   },
   
   addGroundTile : function(attributes) {
+    attributes.world = this;
     this.groundTiles.add(new GroundTile(attributes));
   },
   

@@ -73,18 +73,22 @@ var Player = Class({
   
   draw : function(renderer) {
     var playerDimensions = renderer.translateWorldToScreen(this.dimensions());
+    var surface = renderer.surface;
     
-    renderer.surface.fillStyle = this.rgbColor();
-    renderer.surface.fillRect(-(playerDimensions.width / 2) , 0 , playerDimensions.width , playerDimensions.height);
+    surface.fillStyle = this.rgbColor();
+    surface.fillRect(-(playerDimensions.width / 2) , -(playerDimensions.height / 2) , playerDimensions.width , playerDimensions.height);
     
-    renderer.surface.fillStyle = "rgb(0,0,0)";
-    renderer.surface.fillText(this.username , -(playerDimensions.width / 2) , -5 , playerDimensions.width);
+    surface.save()
+    surface.fillStyle = "rgb(0,0,0)";
+    surface.translate(0 , (playerDimensions.height / 2));
+    surface.scale(1 , -1);
+    surface.fillText(this.username , -(playerDimensions.width / 2) , -5 , playerDimensions.width);
+    surface.restore()
   },
   
   update : function(time) {
     this.grounded = this.body.grounded();
-    this.updates.push(new responses['velocityUpdate'](this.body.GetVelocity()));
-    this.updates.push(new responses['angularVelocityUpdate'](this.body.GetAngularVelocity()));
+    
     this.updates.push(new responses['angleUpdate'](this.body.GetAngle()));
     this.updates.push(new responses['positionUpdate'](this.body.GetPosition()));
     
@@ -116,7 +120,8 @@ var Player = Class({
   
   jump : function() {
     if (this.grounded) {
-      this.body.ApplyImpulse({x : 0 , y : this.volume() * 6} , this.body.GetWorldCenter());
+      this.body.ApplyImpulse({x : 0 , y : this.volume() * 5} , this.body.GetWorldCenter());
+      this.updates.push(new responses['jump']);
     }
   },
   
@@ -126,10 +131,12 @@ var Player = Class({
   
   moveLeft : function() {
     this.force.x -= (this.volume() * this.moveForce);
+    this.updates.push(new responses['left']());
   },
   
   moveRight : function() {
     this.force.x += (this.volume() * this.moveForce);
+    this.updates.push(new responses['right']());
   },
   
   kindOf : function(type) {

@@ -100,10 +100,11 @@ var DynamicBody = Class({
   
   grounded : function() {
     var result = false;
-    
+
     this.GetContactList().each(function(contact) {
       contact.GetManifolds().each(function(manifold) {
-        if (Math.atan2(manifold.normal.y , manifold.normal.x).toPrecision(4) === (Math.PI/2).toPrecision(4)) {
+        var normal = Math.atan2(manifold.normal.y , manifold.normal.x);
+        if (normal >= (Math.PI/2) - 0.2 && normal <= (Math.PI/2) + 0.2) {
           result = true;
         }
       });

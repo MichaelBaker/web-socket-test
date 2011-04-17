@@ -2,9 +2,10 @@ var Renderer = Class({
   className : 'Renderer',
   
   initialize : function() {
-    this.canvas = jQuery('#main-viewport');
+    this.canvas            = jQuery('#main-viewport');
+    this.scalingFactor     = 40;
+    this.viewportThreshold = 100;
     
-    this.scalingFactor = 40;
     this.surface       = this.canvas[0].getContext('2d');
     this.surface.scale(1 , -1);
     this.surface.translate(0 , -this.canvas.outerHeight());
@@ -28,12 +29,7 @@ var Renderer = Class({
     this.surface.save()
     
     this.surface.translate(xOffset , yOffset);
-    this.surface.scale(1 , -1);
-    this.surface.translate(0 , -dimensions.height / 2);
-    this.surface.translate(0 , dimensions.height / 2);
-    this.surface.rotate(-entity.rotation());
-    this.surface.translate(0 , -dimensions.height / 2);
-    
+    this.surface.rotate(entity.rotation());
     entity.draw(this);
     
     this.surface.restore()
@@ -79,5 +75,34 @@ var Renderer = Class({
       
       return newObject;
     }
+  },
+  
+  setViewportPosition : function(values) {
+    this.viewport.x = values.x;
+    this.viewport.y = values.y;
+  },
+  
+  updateViewport : function(values) {
+    var position = this.translateWorldToScreen(values);
+    var x        = this.viewport.x;
+    var y        = this.viewport.y;
+    
+    if (position.x < x + this.viewportThreshold) {
+      x = position.x - this.viewportThreshold;
+    }
+    else if (position.x > x - this.viewportThreshold + this.viewport.width) {
+      x = position.x + this.viewportThreshold - this.viewport.width;
+    }
+    
+    if (position.y < y + this.viewportThreshold) {
+      y = position.y - this.viewportThreshold;
+    }
+    else if (position.y > y + this.viewport.height - this.viewportThreshold) {
+      y = position.y + this.viewportThreshold - this.viewport.height;
+    }
+    
+    y = Math.max(y , 0);
+    
+    this.setViewportPosition({x : x , y : y});
   }
 });

@@ -1,6 +1,7 @@
 if (module.platform !== "browser") {
   var Class = require('./class');
   var box2d = require('box2dnode');
+  var Map   = require('./map');
 }
 
 var StaticBody = Class({
@@ -9,11 +10,16 @@ var StaticBody = Class({
   initialize : function(attributes) {
     this.world = attributes.world;
     
+    var shapeDefinition         = new box2d.b2PolygonDef();
+    shapeDefinition.vertices    = Map.parseVertices(attributes.vertices);
+    shapeDefinition.vertexCount = attributes.vertices.length - 1;
+
+    
     var staticBodyDefinition = new box2d.b2BodyDef();
-    staticBodyDefinition.position.Set(attributes.x, attributes.y);
+    staticBodyDefinition.position.Set(attributes.position.x, attributes.position.y);
     
     this.staticBody = this.world.CreateBody(staticBodyDefinition);
-    this.staticBody.CreateShape(attributes.bodyShape);
+    this.staticBody.CreateShape(shapeDefinition);
   },
   
   GetPosition : function() {

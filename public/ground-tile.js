@@ -12,11 +12,6 @@ var GroundTile = Class({
     this.originalAttributes = attributes;
     this.types              = {ground : true};
     
-    var groundShapeDef = new box2d.b2PolygonDef();
-    groundShapeDef.SetAsBox(attributes.width / 2 , attributes.height / 2);
-
-    attributes.bodyShape = groundShapeDef;
-    
     this.body  = new StaticBody(attributes);
     this.body.SetUserData(this);
   },
@@ -34,10 +29,28 @@ var GroundTile = Class({
   },
   
   draw : function(renderer) {
-    var dimensions = renderer.translateWorldToScreen(this.dimensions());
+    var dimensions     = renderer.translateWorldToScreen(this.dimensions());
+    var screenVertices = this.vertices;
+    var surface = renderer.surface;
     
-    renderer.surface.fillStyle = 'rgb(0,0,0)';
-    renderer.surface.fillRect(-(dimensions.width / 2) , 0 , dimensions.width , dimensions.height);
+    // Translate vertices the first time the time is drawn.
+    if (screenVertices === undefined) {
+      screenVertices = [];
+      this.originalAttributes.vertices.each(function(vertex) {
+        screenVertices.push(renderer.translateWorldToScreen(vertex));
+      });
+      
+      this.vertices = screenVertices;
+    }
+    
+    surface.fillStyle = 'rgb(0,0,0)';
+    surface.beginPath();
+    surface.moveTo(screenVertices[0].x , screenVertices[0].y);
+    for (var i = 1 ; i < screenVertices.length ; i++) {
+      surface.lineTo(screenVertices[i].x , screenVertices[i].y);
+    }
+    surface.closePath();
+    surface.fill();
   },
   
   attributes : function() {

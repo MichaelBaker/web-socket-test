@@ -14,6 +14,7 @@
     <script src = "utilities.js"    ></script>
     <script src = "class.js"        ></script>
     
+    <script src = "map.js"          ></script>
     <script src = "static-body.js"  ></script>
     <script src = "dynamic-body.js" ></script>
     <script src = "ground-tile.js"  ></script>
@@ -58,6 +59,7 @@
             game.renderer.clearScreen();
             game.world.clearUpdates();
             game.world.update(time);
+            game.renderer.updateViewport(game.localPlayer.position());
             game.world.draw(game.renderer);
             
             game.localPlayer.update(time);

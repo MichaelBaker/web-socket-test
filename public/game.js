@@ -50,12 +50,14 @@ var Game = Class({
     var executeFrame = function() {
       var startTime               = new Date().getTime();
       var timeElapsedFromLastTick = startTime - lastTime;
+      var timeUsed                = 0;
 
       func(timeElapsedFromLastTick / 1000);
       
       lastTime = new Date().getTime();
+      timeUsed = lastTime - startTime;
 
-      setTimeout(executeFrame , 0);
+      setTimeout(executeFrame , timeUsed);
     };
 
     executeFrame();

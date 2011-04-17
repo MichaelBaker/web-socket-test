@@ -34,12 +34,12 @@ var requests = {
   
   angularVelocityUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    if (player) { player.setAngularVeocity(message.angularVelocity); }
+    if (player) { player.setAngularVelocity(message.angularVelocity); }
   },
   
   angleUpdate : function(simulation , message) {
     var player = simulation.findPlayerById(message.id);
-    if (player) { player.setAngule(message.angle); }
+    if (player) { player.setAngle(message.angle); }
   },
   
   fetchGroundTile : function(simulation , message) {
@@ -52,5 +52,10 @@ var requests = {
   
   noMorePlayers : function(simulation , message) {
     simulation.playersFetched();
+  },
+  
+  jump : function(simulation , message) {
+    var player = simulation.findPlayerById(message.id);
+    player.jump();
   }
 };
