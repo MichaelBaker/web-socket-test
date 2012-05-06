@@ -7,10 +7,6 @@ var repl   = require('repl');
 var game   = new Game();
 var server = new Server();
 
-//process.on('uncaughtException', function (error) {
-//  console.log('Exception ' + error + ' wasn\'t caught');
-//});
-
 game.gameLoop = function(time) {
   game.world.clearUpdates();
   game.world.update(time);
